@@ -31,20 +31,6 @@ handler.userHandler = (requestProperties, callback) => {
 handler.users = {};
 
 handler.users.post = (requestProperties, callback) => {
-    /* console.log('Entered Here');
-
-    console.log(requestProperties.body);
-
-    const firstN = typeof requestProperties.body.firstName === 'string'
-            && requestProperties.body.firstName.trim().length > 0
-            ? requestProperties.body.firstName
-            : false;
-
-    console.log(firstN);
-
-    // callback(200, requestProperties.body);
-    */
-
     // Create new user
     const firstName = typeof requestProperties.body.firstName === 'string' && requestProperties.body.firstName.trim().length > 0 ? requestProperties.body.firstName : false;
 
@@ -81,7 +67,6 @@ handler.users.post = (requestProperties, callback) => {
                     }
                 });
             } else {
-                // console.log('File Exixts');
                 callback(200, {
                     message: 'Error, File Already Exists!',
                 });
