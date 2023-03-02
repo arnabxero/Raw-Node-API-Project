@@ -157,6 +157,34 @@ handler.users.put = (requestProperties, callback) => {
     }
 };
 
-handler.users.delete = (requestProperties, callback) => {};
+handler.users.delete = (requestProperties, callback) => {
+    const phone = typeof requestProperties.queryStringObject.phone === 'string' && requestProperties.queryStringObject.phone.trim().length === 11 ? requestProperties.queryStringObject.phone : false;
+
+    if (phone) {
+        data.read('users', phone, (err, userData) => {
+            if (!err && userData) {
+                data.delete('users', phone, (err2) => {
+                    if (!err2) {
+                        callback(200, {
+                            message: 'user deleted successfully',
+                        });
+                    } else {
+                        callback(500, {
+                            message: 'Problem Occured in server',
+                        });
+                    }
+                });
+            } else {
+                callback(400, {
+                    message: 'Bad request',
+                });
+            }
+        });
+    } else {
+        callback(400, {
+            message: 'User Does Not Exists',
+        });
+    }
+};
 
 module.exports = handler;
